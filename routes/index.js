@@ -53,4 +53,21 @@ router.post('/delete', function (req, res, next) {
     }
 });
 
+router.post('/update-task', function(req, res, next) {
+    const { id, newName } = req.body;
+    try {
+        req.db.query('UPDATE todos SET task = ? WHERE id = ?;', [newName, id], (err, results) => {
+            if (err) {
+                console.error('Error updating todo: ', err);
+                return res.status(500).send('Error updating todo');
+            }
+            console.log('Todo updated successfully: ', results);
+            res.redirect('/');
+        });
+    } catch (error) {
+        console.error('Error updating todo: ', error);
+        return res.status(500).send('Error updating todo');
+    }
+})
+
 module.exports = router;

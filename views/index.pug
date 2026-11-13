@@ -6,14 +6,19 @@ block content
   ol
   each val in todos
     li
-      span= val.task + ' - '
+      span(class='task-name')= val.task
+      span  - 
+
       if val.completed > 0
         span Completed
       else
         span Not Completed
+
       form(method='POST' action='/delete')
-        input(type='hidden', name='id', value=val.id)
+        input(class='task-id', type='hidden', name='id', value=val.id)
         button(type='submit') Delete
+      
+      button(class='edit-btn') Edit
 
   hr
   h2 Add a new task
