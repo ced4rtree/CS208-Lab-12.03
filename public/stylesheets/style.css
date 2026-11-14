@@ -1,19 +1,63 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    padding: 50px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    background-image: url("/images/background.jpg");
+    max-width: 800px;
+    margin: auto;
+}
+
+/* a div wrapping the entire page body */
+.content-wrapper {
+    background-color: grey;
+    border-radius: 10px;
+    padding-bottom: 8px;
+}
+
+/* a div wrapping solely the page containing parts the user will interact with
+ * (everything except the header basically)
+ */
+.interface-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 0px 10px;
+}
+
+h1 {
+    text-align: center;
+}
+
+h2 {
+    margin: 0;
 }
 
 a {
-  color: #00B7FF;
+    color: #00B7FF;
 }
 
-input {
+input[type="text"] {
     field-sizing: content;
     min-width: 75px;
     max-width: 500px;
 }
 
+span {
+    color: red;
+}
+
 .completed {
-    color: grey;
+    color: black;
     text-decoration: line-through;
+}
+
+.task-container {
+    margin-bottom: 15px;
+}
+
+input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+#task {
+    width: 100%;
+    box-sizing: border-box;
 }

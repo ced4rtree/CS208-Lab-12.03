@@ -1,5 +1,5 @@
 addEventListener("DOMContentLoaded", () => {
-    const todoItems = document.querySelectorAll("li");
+    const todoItems = document.querySelectorAll(".task-container");
     todoItems.forEach(todo => {
         enableEditingFor(todo);
         enableCompletionFor(todo);

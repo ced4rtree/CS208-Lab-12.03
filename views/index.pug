@@ -2,24 +2,27 @@ extends layout
 
 block content
   h1= title
-  ol
-  each val in todos
-    li
-      input(class='task-id', type='hidden', name='id', value=val.id)
+  div(class="interface-container")
+    div
+      each val in todos
+        div(class="task-container")
+          input(class='task-id', type='hidden', name='id', value=val.id)
 
-      if val.completed
-        span(class='task-name completed')= val.task
-        input(type='checkbox' class='completion-toggle' checked)
-      else
-        span(class='task-name')= val.task
-        input(type='checkbox' class='completion-toggle')
-      
-      button(class='delete-btn') Delete
-      button(class='edit-btn') Edit
+          if val.completed
+            input(type='checkbox' class='completion-toggle' checked)
+            span(class='task-name completed')= val.task
+          else
+            input(type='checkbox' class='completion-toggle')
+            span(class='task-name')= val.task
 
-  hr
-  h2 Add a new task
-  form(method='POST' action='/create')
-    label(for='task') Task:
-    input(type='text', name='task', id='task', required)
-    button(type='submit') Create Task
+          br
+
+          button(class='delete-btn') Delete
+          button(class='edit-btn') Edit
+
+    div
+      h2 Add a new task
+      form(method='POST' action='/create')
+        input(type='text', name='task', id='task', required)
+        br
+        button(type='submit') Create Task
