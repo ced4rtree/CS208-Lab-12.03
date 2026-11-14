@@ -2,10 +2,10 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
   ol
   each val in todos
     li
+      input(class='task-id', type='hidden', name='id', value=val.id)
 
       if val.completed
         span(class='task-name completed')= val.task
