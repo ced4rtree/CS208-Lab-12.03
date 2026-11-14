@@ -39,7 +39,7 @@ input[type="text"] {
     max-width: 500px;
 }
 
-span {
+.task-name {
     color: red;
     width: 100%;
     word-wrap: break-word;

@@ -37,20 +37,24 @@ const enableDeletionFor = todo => {
 }
 
 const enableCompletionFor = todo => {
+    const clickableArea = todo.querySelector(".check-and-text");
     const completionToggle = todo.querySelector(".completion-toggle");
     const taskNameElement = todo.querySelector(".task-name");
     const taskId = getTodoId(todo);
 
-    completionToggle.addEventListener("change", event => {
+    clickableArea.addEventListener("click", event => {
+        if (event.target !== completionToggle) {
+            completionToggle.checked = !completionToggle.checked;
+        }
+
         if (taskNameElement) {
-            if (event.target.checked) {
+            if (completionToggle.checked) {
                 taskNameElement.classList.add("completed");
             } else {
                 taskNameElement.classList.remove("completed");
             }
         }
 
-        console.log(typeof event.target.checked);
         sendPost('/set-completion', {
             id: taskId,
             completed: event.target.checked
@@ -59,7 +63,8 @@ const enableCompletionFor = todo => {
 }
 
 const enableEditingFor = todo => {
-    const taskNameElement = todo.querySelector(".task-name");
+    const taskNameContainer = todo.querySelector(".check-and-text");
+    const taskNameElement = taskNameContainer.querySelector(".task-name");
     const editBtn = todo.querySelector(".edit-btn");
 
     const taskInputElement = document.createElement("input");
@@ -99,7 +104,7 @@ const enableEditingFor = todo => {
 
     editBtn.addEventListener("click", () => {
         // enable the user to change the task name after hitting the edit button
-        todo.insertBefore(taskInputElement, taskNameElement);
+        taskNameContainer.insertBefore(taskInputElement, taskNameElement);
         taskNameElement.remove();
 
         // change the edit button to cancel/confirm buttons

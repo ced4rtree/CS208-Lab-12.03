@@ -8,12 +8,15 @@ block content
         div(class="task-container")
           input(class='task-id', type='hidden', name='id', value=val.id)
 
-          if val.completed
-            input(type='checkbox' class='completion-toggle' checked)
-            span(class='task-name completed')= val.task
-          else
-            input(type='checkbox' class='completion-toggle')
-            span(class='task-name')= val.task
+          // this span wrapper is just so we can enable clicking on this area
+          // in general to toggle completion
+          span(class="check-and-text")
+            if val.completed
+              input(type='checkbox' class='completion-toggle' checked)
+              span(class='task-name completed')= val.task
+            else
+              input(type='checkbox' class='completion-toggle')
+              span(class='task-name')= val.task
 
           br
 
