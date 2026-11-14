@@ -3,7 +3,7 @@ extends layout
 block content
   h1= title
   div(class="interface-container")
-    div
+    div(id="tasklist-container")
       each val in todos
         div(class="task-container")
           input(class='task-id', type='hidden', name='id', value=val.id)

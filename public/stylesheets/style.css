@@ -10,7 +10,6 @@ body {
 .content-wrapper {
     background-color: grey;
     border-radius: 10px;
-    padding-bottom: 8px;
 }
 
 /* a div wrapping solely the page containing parts the user will interact with
@@ -42,11 +41,17 @@ input[type="text"] {
 
 span {
     color: red;
+    width: 100%;
+    word-wrap: break-word;
 }
 
 .completed {
     color: black;
     text-decoration: line-through;
+}
+
+#tasklist-container {
+    max-width: 40%;
 }
 
 .task-container {
