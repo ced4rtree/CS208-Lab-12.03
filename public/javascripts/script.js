@@ -5,6 +5,11 @@ addEventListener("DOMContentLoaded", () => {
         enableCompletionFor(todo);
         enableDeletionFor(todo);
     });
+
+    // allow user to start typing a new task without having to select the actual
+    // input field
+    const taskInputField = document.querySelector("#task");
+    taskInputField.focus();
 });
 
 function getTodoId(todo) {
