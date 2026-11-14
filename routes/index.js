@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 /* GET home page. */
-router.get('/', function(req, res, next){
+router.get('/', function(req, res, next) {
   try {
     req.db.query('SELECT * FROM todos;', (err, results) => {
       if (err) {
@@ -67,6 +67,26 @@ router.post('/update-task', function(req, res, next) {
     } catch (error) {
         console.error('Error updating todo: ', error);
         return res.status(500).send('Error updating todo');
+    }
+})
+
+router.post('/set-completion', function(req, res, next) {
+    let { id, completed } = req.body;
+    // since we send the completed info using URLSearchParams, the boolean value
+    // of completed is converted to a string that's either "true" or "false".
+    // Here we convert it back to a boolean value
+    completed = completed === 'true';
+    try {
+        req.db.query('UPDATE todos SET completed = ? WHERE id = ?;', [completed ? 1 : 0, id], (err, results) => {
+            if (err) {
+                console.error('Error updating completion: ', err);
+                return res.status(500).send('Error updating completion: ' + err);
+            }
+            console.log('Todo completion updated successfully: ', results);
+        });
+    } catch (error) {
+        console.error('Error updating completion: ', error);
+        return res.status(500).send('Error updating completion: ' + error);
     }
 })
 

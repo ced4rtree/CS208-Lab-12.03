@@ -12,3 +12,8 @@ input {
     min-width: 75px;
     max-width: 500px;
 }
+
+.completed {
+    color: grey;
+    text-decoration: line-through;
+}

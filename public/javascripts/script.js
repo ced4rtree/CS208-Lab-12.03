@@ -2,8 +2,46 @@ addEventListener("DOMContentLoaded", () => {
     const todoItems = document.querySelectorAll("li");
     todoItems.forEach(todo => {
         enableEditingFor(todo);
+        enableCompletionFor(todo);
     });
 });
+
+function getTodoId(todo) {
+    return todo.querySelector('.task-id').value;
+}
+
+function sendPost(url, body) {
+    fetch(url, {
+        method: 'POST',
+        body: new URLSearchParams(body)
+    }).then(res => {
+        if (res.redirected) {
+            window.location.href = res.url;
+        }
+    });
+}
+
+const enableCompletionFor = todo => {
+    const completionToggle = todo.querySelector(".completion-toggle");
+    const taskNameElement = todo.querySelector(".task-name");
+    const taskId = getTodoId(todo);
+
+    completionToggle.addEventListener("change", event => {
+        if (taskNameElement) {
+            if (event.target.checked) {
+                taskNameElement.classList.add("completed");
+            } else {
+                taskNameElement.classList.remove("completed");
+            }
+        }
+
+        console.log(typeof event.target.checked);
+        sendPost('/set-completion', {
+            id: taskId,
+            completed: event.target.checked
+        });
+    });
+}
 
 const enableEditingFor = todo => {
     const taskNameElement = todo.querySelector(".task-name");
@@ -18,7 +56,7 @@ const enableEditingFor = todo => {
     const confirmBtn = document.createElement("button");
     confirmBtn.innerHTML = "Confirm";
 
-    const taskId = todo.querySelector('.task-id').value;
+    const taskId = getTodoId(todo);
 
     // cancel should return us to our original page, restore edit button
     // & non-input task name
@@ -34,18 +72,13 @@ const enableEditingFor = todo => {
     // confirm should just update the database; this POST request
     // redirects us back to the main page so resetting page state is
     // handled smoothly
-    let confirmNewTask = () => {
-        fetch("/update-task", {
-            method: "POST",
-            body: new URLSearchParams({
+    const confirmNewTask = () => {
+        if (taskInputElement.value !== "") {
+            sendPost('/update-task', {
                 newName: taskInputElement.value,
                 id: taskId
-            })
-        }).then(res => {
-            if (res.redirected) {
-                window.location.href = res.url;
-            }
-        });
+            });
+        }
     };
     confirmBtn.addEventListener("click", confirmNewTask)
 
