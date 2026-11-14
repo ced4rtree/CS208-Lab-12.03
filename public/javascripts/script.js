@@ -3,6 +3,7 @@ addEventListener("DOMContentLoaded", () => {
     todoItems.forEach(todo => {
         enableEditingFor(todo);
         enableCompletionFor(todo);
+        enableDeletionFor(todo);
     });
 });
 
@@ -18,6 +19,15 @@ function sendPost(url, body) {
         if (res.redirected) {
             window.location.href = res.url;
         }
+    });
+}
+
+const enableDeletionFor = todo => {
+    const taskId = getTodoId(todo);
+    const deleteButton = todo.querySelector(".delete-btn");
+
+    deleteButton.addEventListener("click", () => {
+        sendPost("/delete", { id: taskId });
     });
 }
 

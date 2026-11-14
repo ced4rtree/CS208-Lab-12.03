@@ -13,11 +13,8 @@ block content
       else
         span(class='task-name')= val.task
         input(type='checkbox' class='completion-toggle')
-
-      form(method='POST' action='/delete')
-        input(class='task-id', type='hidden', name='id', value=val.id)
-        button(type='submit') Delete
       
+      button(class='delete-btn') Delete
       button(class='edit-btn') Edit
 
   hr
